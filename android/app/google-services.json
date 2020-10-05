@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "888055194384",
+    "firebase_url": "https://mafia-gd.firebaseio.com",
+    "project_id": "mafia-gd",
+    "storage_bucket": "mafia-gd.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:888055194384:android:fa4e7d453ac734814cbb95",
+        "android_client_info": {
+          "package_name": "com.gciesielski.mafia"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "888055194384-agm1eo83uarf7dg2jfdaqiggf70h650a.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDK2d_sDWl2jj397VS3lGRezyPOfp8AcjE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "888055194384-agm1eo83uarf7dg2jfdaqiggf70h650a.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
