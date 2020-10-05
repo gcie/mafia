@@ -1,0 +1,7 @@
+{
+  "name": "mafia",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
