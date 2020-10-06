@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { AuthService } from 'src/app/core/services/auth.service';
 
@@ -7,7 +7,7 @@ import { AuthService } from 'src/app/core/services/auth.service';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent {
   collection: Observable<unknown[]> = new BehaviorSubject([]);
 
   constructor(public auth: AuthService) {
@@ -17,14 +17,6 @@ export class HomeComponent implements OnInit {
   test() {
     // this.fireAuth.currentUser.then(console.log);
     // this.fireAuth.signInWithPopup(new auth.GoogleAuthProvider());
-  }
-
-  ngOnInit() {
-    // this.fireAuth.currentUser.then(console.log);
-  }
-
-  signInGoogle() {
-    this.auth.googleSignIn().subscribe(console.log);
   }
 
   logout() {

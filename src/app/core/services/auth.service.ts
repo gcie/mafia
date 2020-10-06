@@ -1,12 +1,18 @@
-import { Injectable } from '@angular/core';
+import { Injectable, NgZone } from '@angular/core';
+import { Router } from '@angular/router';
 import { cfaSignIn, cfaSignOut, mapUserToUserInfo } from 'capacitor-firebase-auth';
-import { auth, User, UserInfo } from 'firebase';
-import { BehaviorSubject, Observable, of } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { auth, UserInfo } from 'firebase';
+import { BehaviorSubject, Observable, of, OperatorFunction } from 'rxjs';
+import { map, mergeMap, tap } from 'rxjs/operators';
+
+export interface User {
+  name: string;
+  email: string;
+}
 
 export interface AuthState {
   resolved: boolean;
-  user: UserInfo;
+  user: User;
 }
 
 @Injectable({
@@ -14,26 +20,42 @@ export interface AuthState {
 })
 export class AuthService {
   authState$: BehaviorSubject<AuthState> = new BehaviorSubject({ resolved: false, user: null });
-  currentUser$: Observable<UserInfo> = this.authState$.pipe(map((authState) => authState?.user));
+  currentUser$: Observable<User> = this.authState$.pipe(map((authState) => authState?.user));
 
-  constructor() {
+  constructor(private router: Router, private zone: NgZone) {
     auth().onAuthStateChanged((authState) => {
       of(authState)
         .pipe(mapUserToUserInfo())
         .subscribe((user: UserInfo) => {
-          this.authState$.next({ resolved: true, user });
+          this.authState$.next({ resolved: true, user: { name: user.displayName, email: user.email } });
         });
     });
   }
 
+  public nicknameSignIn(nickname: string): Observable<User> {
+    const user: User = { name: nickname, email: null };
+    this.authState$.next({ resolved: true, user });
+    return of(user);
+  }
+
   public googleSignIn(): Observable<User> {
-    if (auth().currentUser) {
-      this.authState$.next({ resolved: true, user: auth().currentUser });
-    }
-    return cfaSignIn('google.com');
+    return cfaSignIn('google.com').pipe(this.mapUser());
   }
 
   public signOut(): Observable<void> {
-    return cfaSignOut();
+    return cfaSignOut().pipe(
+      tap(() => {
+        this.router.navigateByUrl('/login');
+      })
+    );
+  }
+
+  private mapUser(): OperatorFunction<firebase.User, User> {
+    return mergeMap((user: firebase.User) => {
+      return of(user).pipe(
+        mapUserToUserInfo(),
+        map(({ displayName, email }) => ({ name: displayName, email }))
+      );
+    });
   }
 }

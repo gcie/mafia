@@ -1,0 +1,25 @@
+@import '~@angular/material/theming';
+@import '../../../../theme/colors.scss';
+@import '../../../../theme/app-theme.scss';
+
+.bg {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  color: #fff;
+  //   background-color: #303030;
+}
+
+// $candy-app-theme: mat-light-theme(
+//   (
+//     color: (
+//       primary: $candy-app-primary,
+//       accent: $candy-app-accent,
+//       warn: $candy-app-warn,
+//     ),
+//   )
+// );
+
+// @include angular-material-theme($app-main-theme-dark);

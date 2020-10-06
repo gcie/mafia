@@ -1,0 +1,65 @@
+@import '~@angular/material/theming';
+
+$green-600: (
+  dark: #00701a,
+  medium-dark: #278831,
+  default: #43a047,
+  medium-light: #5db95e,
+  light: #76d275,
+  contrast: (
+    dark: $light-primary-text,
+    default: $dark-primary-text,
+    light: $dark-primary-text,
+  ),
+);
+
+$green-700: (
+  dark: #00600f,
+  medium-dark: #1b7626,
+  default: #388e3c,
+  medium-light: #51a652,
+  light: #6abf69,
+  contrast: (
+    dark: $light-primary-text,
+    default: $dark-primary-text,
+    light: $dark-primary-text,
+  ),
+);
+
+$brown-600: (
+  dark: #40241a,
+  medium-dark: #56372d,
+  default: #6d4c41,
+  medium-light: #846256,
+  light: #9c786c,
+  very-light: #b58f83,
+  contrast: (
+    dark: $light-primary-text,
+    default: $light-primary-text,
+    light: $dark-primary-text,
+  ),
+);
+
+$amber-600: (
+  dark: #c68400,
+  medium-dark: #e19c27,
+  default: #ffb300,
+  medium-light: #e4cc30,
+  light: #ffe54c,
+  contrast: (
+    dark: $dark-primary-text,
+    default: $dark-primary-text,
+    light: $dark-primary-text,
+  ),
+);
+
+$blue-grey-900: (
+  dark: #000a12,
+  default: #263238,
+  light: #4f5b62,
+  constrast: (
+    dark: $light-primary-text,
+    default: $light-primary-text,
+    light: $light-primary-text,
+  ),
+);

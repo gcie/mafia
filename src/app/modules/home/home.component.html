@@ -1,7 +1,7 @@
 <div fxLayout="column" style="width: 100vw; height: 100vh" fxLayoutAlign="center center" fxLayoutGap="8px">
   <h2 *ngIf="auth.currentUser$ |  async" class="mat-h2">Jesteś zalogowany jako:<br />
-    {{ (auth.currentUser$ | async)?.displayName }}</h2>
-  <h3 *ngIf="auth.currentUser$ |  async" class="mat-h3">{{ (auth.currentUser$ | async)?.email }}</h3>
+    {{ (auth.currentUser$ | async)?.name }}</h2>
+  <h3 *ngIf="(auth.currentUser$ |  async)?.email" class="mat-h3">{{ (auth.currentUser$ | async)?.email }}</h3>
   <h2 *ngIf="!(auth.currentUser$ | async)" class="mat-h2">Jesteś niezalogowany</h2>
   <div *ngFor="let item of collection | async">
     {{ item }}
