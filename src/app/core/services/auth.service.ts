@@ -1,4 +1,4 @@
-import { Injectable, NgZone } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { cfaSignIn, cfaSignOut, mapUserToUserInfo } from 'capacitor-firebase-auth';
 import { auth, UserInfo } from 'firebase';
@@ -22,13 +22,15 @@ export class AuthService {
   authState$: BehaviorSubject<AuthState> = new BehaviorSubject({ resolved: false, user: null });
   currentUser$: Observable<User> = this.authState$.pipe(map((authState) => authState?.user));
 
-  constructor(private router: Router, private zone: NgZone) {
+  constructor(private router: Router) {
     auth().onAuthStateChanged((authState) => {
-      of(authState)
-        .pipe(mapUserToUserInfo())
-        .subscribe((user: UserInfo) => {
-          this.authState$.next({ resolved: true, user: { name: user.displayName, email: user.email } });
-        });
+      if (authState) {
+        of(authState)
+          .pipe(mapUserToUserInfo())
+          .subscribe((user: UserInfo) => {
+            this.authState$.next({ resolved: true, user: { name: user.displayName, email: user.email } });
+          });
+      }
     });
   }
 

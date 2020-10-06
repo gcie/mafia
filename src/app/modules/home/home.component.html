@@ -1,4 +1,4 @@
-<div fxLayout="column" style="width: 100vw; height: 100vh" fxLayoutAlign="center center" fxLayoutGap="8px">
+<div fxLayout="column" class="bg" fxLayoutAlign="center center" fxLayoutGap="8px">
   <h2 *ngIf="auth.currentUser$ |  async" class="mat-h2">Jesteś zalogowany jako:<br />
     {{ (auth.currentUser$ | async)?.name }}</h2>
   <h3 *ngIf="(auth.currentUser$ |  async)?.email" class="mat-h3">{{ (auth.currentUser$ | async)?.email }}</h3>
