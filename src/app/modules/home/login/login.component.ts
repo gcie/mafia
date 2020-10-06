@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/core/services/auth.service';
 
@@ -7,10 +7,14 @@ import { AuthService } from 'src/app/core/services/auth.service';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
 })
-export class LoginComponent {
-  nickname: string;
+export class LoginComponent implements OnInit {
+  nickname: string = 'Gucci';
 
   constructor(private auth: AuthService, private router: Router) {}
+
+  ngOnInit() {
+    this.nicknameSignIn();
+  }
 
   nicknameSignIn() {
     this.auth.nicknameSignIn(this.nickname).subscribe(this.successRedirect.bind(this));

@@ -1,12 +1,21 @@
-<div fxLayout="column" class="bg" fxLayoutAlign="center center" fxLayoutGap="8px">
-  <h2 *ngIf="auth.currentUser$ |  async" class="mat-h2">Jesteś zalogowany jako:<br />
-    {{ (auth.currentUser$ | async)?.name }}</h2>
-  <h3 *ngIf="(auth.currentUser$ |  async)?.email" class="mat-h3">{{ (auth.currentUser$ | async)?.email }}</h3>
-  <h2 *ngIf="!(auth.currentUser$ | async)" class="mat-h2">Jesteś niezalogowany</h2>
-  <div *ngFor="let item of collection | async">
-    {{ item }}
+<div fxLayout="column" class="bg" fxLayoutAlign="start center" fxLayoutGap="64px" style="padding: 24px">
+  <div class="mat-display-1">Menu główne</div>
+  <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="16px">
+    <button mat-raised-button color="primary" (click)="newGame()" class="opt-btn">
+      Nowa gra
+    </button>
+    <mat-divider></mat-divider>
+
+    <div fxLayout="column">
+      <mat-form-field style="font-size: 32px; text-align: center; padding: 0 0 0.5em 0;" appearance="outline">
+        <!-- <mat-label>Kod</mat-label> -->
+        <input matInput type="text" [(ngModel)]="gameCode" name="gameCode" maxlength="6" appUppercase #gameCodeInput>
+      </mat-form-field>
+
+      <button mat-raised-button color="accent" (click)="joinGame()" class="opt-btn"
+        [disabled]="!gameCode || gameCode.length < 6">
+        <span>Dołącz do gry</span>
+      </button>
+    </div>
   </div>
-  <button mat-raised-button class="btn" color="primary" (click)="test()">Test</button>
-  <button mat-raised-button class="btn" color="accent" (click)="signInGoogle()">Google sign in</button>
-  <button mat-raised-button class="btn" color="warn" (click)="logout()">Logout</button>
 </div>

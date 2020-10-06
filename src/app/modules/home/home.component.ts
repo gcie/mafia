@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
 import { AuthService } from 'src/app/core/services/auth.service';
 
 @Component({
@@ -8,18 +7,19 @@ import { AuthService } from 'src/app/core/services/auth.service';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent {
-  collection: Observable<unknown[]> = new BehaviorSubject([]);
+  gameCode: string;
 
-  constructor(public auth: AuthService) {
-    // this.collection = this.fireStore.collection('test').valueChanges().pipe(tap(console.log));
-  }
-
-  test() {
-    // this.fireAuth.currentUser.then(console.log);
-    // this.fireAuth.signInWithPopup(new auth.GoogleAuthProvider());
-  }
+  constructor(public auth: AuthService) {}
 
   logout() {
     this.auth.signOut().subscribe(console.log);
+  }
+
+  newGame() {
+    // TODO
+  }
+
+  joinGame() {
+    // TODO
   }
 }

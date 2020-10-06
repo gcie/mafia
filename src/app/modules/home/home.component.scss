@@ -1,4 +1,14 @@
-.btn {
-  min-width: 200px;
-  min-height: 50px;
+.opt-btn {
+  min-width: 240px;
+  min-height: 60px;
+  font-size: 16px;
+}
+
+::ng-deep {
+  .mat-form-field-appearance-outline .mat-form-field-infix {
+    padding: 0 0 0.5em 0 !important;
+  }
+  .mat-form-field-appearance-outline .mat-form-field-wrapper {
+    padding-bottom: 0 !important;
+  }
 }
