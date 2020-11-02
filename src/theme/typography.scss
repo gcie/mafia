@@ -1,11 +1,11 @@
-$amagro-font: 'Amagro';
+
 
 $app-main-typography: mat-typography-config(
-  $font-family: 'Roboto, "Helvetica Neue", sans-serif',
-  $display-4: mat-typography-level(112px, 112px, 300, $font-family: $amagro-font, $letter-spacing: -0.05em),
-  $display-3: mat-typography-level(56px, 56px, 400, $font-family: $amagro-font, $letter-spacing: -0.02em),
-  $display-2: mat-typography-level(45px, 48px, 400, $font-family: $amagro-font, $letter-spacing: -0.005em),
-  $display-1: mat-typography-level(34px, 40px, 400, $font-family: $amagro-font),
+  $font-family: 'Montserrat, Roboto, "Helvetica Neue", sans-serif',
+  $display-4: mat-typography-level(112px, 112px, 300, $font-family: 'Cinzel', $letter-spacing: -0.05em),
+  $display-3: mat-typography-level(56px, 56px, 400, $font-family: 'Cinzel', $letter-spacing: -0.02em),
+  $display-2: mat-typography-level(45px, 48px, 400, $font-family: 'Cinzel', $letter-spacing: -0.005em),
+  $display-1: mat-typography-level(34px, 40px, 400, $font-family: 'Cinzel'),
   $headline: mat-typography-level(24px, 32px, 400),
   $title: mat-typography-level(20px, 32px, 500),
   $subheading-2: mat-typography-level(16px, 28px, 400),

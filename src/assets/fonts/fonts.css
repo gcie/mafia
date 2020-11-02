@@ -1,4 +1,14 @@
 @font-face {
-  font-family: 'Amagro';
-  src: url('./amagro/Amagro-bold.ttf');
+  font-family: 'Cinzel';
+  src: url(cinzel/Cinzel.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: 'Montserrat';
+  src: url(montserrat/Montserrat.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: 'Montserrat-Italic';
+  src: url(montserrat/Montserrat-Italic.ttf) format('truetype');
 }
