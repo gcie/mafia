@@ -4,11 +4,12 @@
   "author": "Grzegorz & Dariusz Ciesielscy",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
-    "build": "ng build",
+    "start": "ionic serve",
+    "build": "ionic cap sync android",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "deploy:rules": "firebase deploy --only firestore:rules"
   },
   "private": true,
   "dependencies": {
