@@ -30,6 +30,7 @@
 // Plus imports for other components in your app.
 @import './theme/app-theme.scss';
 @import './theme/typography.scss';
+@import './theme/colors.scss';
 
 @include mat-core();
 // @include angular-material-theme($app-main-theme-dark);
@@ -50,11 +51,16 @@ input {
 }
 
 .bg {
-  position: absolute;
+  overflow: scroll;
   top: 0;
-  bottom: 0;
   left: 0;
-  right: 0;
+  min-height: 100vh;
+  min-width: 100vw;
   background-color: #303030;
   color: #fff;
+}
+
+
+button.mat-green {
+  background-color: map-get($map: $green-700, $key: medium-dark);
 }

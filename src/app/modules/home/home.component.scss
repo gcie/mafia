@@ -1,6 +1,6 @@
 .opt-btn {
-  min-width: 240px;
-  min-height: 60px;
+  // min-width: 240px;
+  min-height: 50px;
   font-size: 16px;
 }
 
@@ -11,4 +11,13 @@
   .mat-form-field-appearance-outline .mat-form-field-wrapper {
     padding-bottom: 0 !important;
   }
+}
+
+.header {
+  margin: 0 0 16px 0 !important;
+  text-align: center;
+}
+
+.logout-icon {
+  margin: 0 8px;
 }

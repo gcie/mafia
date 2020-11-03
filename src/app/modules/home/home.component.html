@@ -1,9 +1,12 @@
-<div fxLayout="column" class="bg" fxLayoutAlign="start center" fxLayoutGap="64px" style="padding: 24px">
-  <div class="mat-display-1">Menu główne</div>
+<div fxLayout="column" class="bg" fxLayoutAlign="start center" style="padding: 24px">
+  <div class="mat-display-1 header">Menu główne</div>
+  <div fxFlex></div>
   <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="16px">
-    <button mat-raised-button color="primary" (click)="newGame()" class="opt-btn">
+    <button mat-raised-button color="primary" (click)="newGame()" class="opt-btn"
+      [disabled]="!(auth.isOnline$ | async)">
       Nowa gra
     </button>
+
     <mat-divider></mat-divider>
 
     <div fxLayout="column">
@@ -12,10 +15,25 @@
         <input matInput type="text" [(ngModel)]="gameCode" name="gameCode" maxlength="6" appUppercase #gameCodeInput>
       </mat-form-field>
 
-      <button mat-raised-button color="accent" (click)="joinGame()" class="opt-btn"
+      <button mat-raised-button color="green" (click)="joinGame()" class="opt-btn"
         [disabled]="!gameCode || gameCode.length < 6">
         <span>Dołącz do gry</span>
       </button>
+
     </div>
+
+    <mat-divider></mat-divider>
+
+    <div fxFlex></div>
+    <div style="text-align: center;">
+      <span class="mat-body-1">
+        Jesteś zalogowany jako: {{ username | async }}
+      </span>
+    </div>
+    <button mat-raised-button class="opt-btn">
+      <span>Wyloguj</span>
+      <mat-icon class="logout-icon" (click)="logout()">logout</mat-icon>
+    </button>
   </div>
+  <div fxFlex></div>
 </div>
