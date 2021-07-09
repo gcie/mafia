@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
 import { PlayerViewComponent } from './player-view.component';
@@ -7,7 +7,7 @@ describe('PlayerViewComponent', () => {
   let component: PlayerViewComponent;
   let fixture: ComponentFixture<PlayerViewComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [PlayerViewComponent],
       imports: [IonicModule.forRoot()],

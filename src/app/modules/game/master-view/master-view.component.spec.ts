@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
 import { MasterViewComponent } from './master-view.component';
@@ -7,7 +7,7 @@ describe('MasterViewComponent', () => {
   let component: MasterViewComponent;
   let fixture: ComponentFixture<MasterViewComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [MasterViewComponent],
       imports: [IonicModule.forRoot()],
