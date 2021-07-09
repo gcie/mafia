@@ -9,7 +9,8 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "deploy:rules": "firebase deploy --only firestore:rules"
+    "deploy:rules": "firebase deploy --only firestore:rules",
+    "format": "prettier --write ./**/*.scss --parser=scss && prettier --write ./**/*.json --parser=json && prettier --write ./**/*.ts --parser=typescript && prettier --write ./**/*.html --parser=html"
   },
   "private": true,
   "dependencies": {
@@ -31,14 +32,15 @@
     "@ionic/angular": "^5.0.0",
     "@mdi/font": "^5.8.55",
     "capacitor-firebase-auth": "^2.3.2",
-    "firebase": "^7.22.0",
+    "firebase": "^8.7.1",
     "rxjs": "~6.6.3",
     "tslib": "^2.0.0",
+    "uuid": "^8.3.1",
     "zone.js": "~0.10.3"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "~0.1001.4",
-    "@angular/cli": "~10.1.4",
+    "@angular-devkit/build-angular": "^12.1.1",
+    "@angular/cli": "^12.1.1",
     "@angular/compiler": "~10.1.4",
     "@angular/compiler-cli": "~10.1.4",
     "@angular/language-service": "~10.1.4",
@@ -50,12 +52,12 @@
     "codelyzer": "^6.0.0",
     "jasmine-core": "~3.5.0",
     "jasmine-spec-reporter": "~5.0.0",
-    "karma": "~5.0.0",
+    "karma": "^6.3.4",
     "karma-chrome-launcher": "~3.1.0",
     "karma-coverage-istanbul-reporter": "~3.0.2",
     "karma-jasmine": "~3.3.0",
     "karma-jasmine-html-reporter": "^1.5.0",
-    "prettier": "^2.1.2",
+    "prettier": "^2.3.2",
     "protractor": "~7.0.0",
     "ts-node": "~8.3.0",
     "tslint": "~6.1.0",

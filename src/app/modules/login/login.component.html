@@ -2,19 +2,15 @@
   <div class="mat-display-3">Mafia</div>
 
   <div fxLayout="column" fxLayoutAlign="center stretch" fxLayoutGap="16px">
-
-
     <mat-form-field>
       <mat-label>Pseudonim</mat-label>
-      <input matInput type="text" [(ngModel)]="nickname" name="nickname">
+      <input matInput type="text" [(ngModel)]="nickname" name="nickname" />
     </mat-form-field>
 
-    <button mat-raised-button class="btn" color="primary" [disabled]="!nickname" (click)="nicknameSignIn()">Bez
-      logowania</button>
+    <button mat-raised-button class="btn" color="primary" [disabled]="!nickname" (click)="nicknameSignIn()">Bez logowania</button>
 
     <mat-divider></mat-divider>
 
     <button mat-raised-button class="btn" color="warn" (click)="googleSignIn()">Zaloguj przez Google</button>
-
   </div>
 </mat-sidenav-conatiner>

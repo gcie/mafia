@@ -9,6 +9,7 @@ import { initializeApp } from 'firebase';
 import { environment } from 'src/environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { PidProvider } from './core/providers/pid.provider';
 import { MaterialModule } from './modules/material.module';
 
 initializeApp(environment.firebase);
@@ -17,7 +18,7 @@ initializeApp(environment.firebase);
   declarations: [AppComponent],
   entryComponents: [],
   imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, BrowserAnimationsModule, MaterialModule],
-  providers: [StatusBar, SplashScreen, { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
+  providers: [StatusBar, SplashScreen, { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }, PidProvider],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
