@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Storage } from '@capacitor/core';
+import { from } from 'rxjs';
+import { pluck } from 'rxjs/operators';
 
 @Injectable({ providedIn: 'root' })
 export class StorageService {
@@ -7,33 +9,31 @@ export class StorageService {
   private LAST_NICKNAME = 'last-nickname';
   private GAME_TOKEN = 'game-token';
 
-  private mapToValue = (o?: { value: string }) => o?.value;
-
   public deleteNickname() {
-    return Storage.remove({ key: this.NICKNAME });
+    return from(Storage.remove({ key: this.NICKNAME }));
   }
 
   public setNickname(value: string) {
-    return Storage.set({ key: this.NICKNAME, value });
+    return from(Storage.set({ key: this.NICKNAME, value }));
   }
 
   public getNickname() {
-    return Storage.get({ key: this.NICKNAME }).then(this.mapToValue);
+    return from(Storage.get({ key: this.NICKNAME })).pipe(pluck('value'));
   }
 
   public setLastNickname(value: string) {
-    return Storage.set({ key: this.LAST_NICKNAME, value });
+    return from(Storage.set({ key: this.LAST_NICKNAME, value }));
   }
 
   public getLastNickname() {
-    return Storage.get({ key: this.LAST_NICKNAME }).then(this.mapToValue);
+    return from(Storage.get({ key: this.LAST_NICKNAME })).pipe(pluck('value'));
   }
 
   public setGameToken(value: string) {
-    return Storage.set({ key: this.GAME_TOKEN, value });
+    return from(Storage.set({ key: this.GAME_TOKEN, value }));
   }
 
   public getGameToken() {
-    return Storage.get({ key: this.GAME_TOKEN }).then(this.mapToValue);
+    return from(Storage.get({ key: this.GAME_TOKEN })).pipe(pluck('value'));
   }
 }

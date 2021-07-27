@@ -2,7 +2,8 @@
   <div class="mat-display-1 header">Menu główne</div>
   <div fxFlex></div>
   <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="16px">
-    <button mat-raised-button color="primary" (click)="newGame()" class="opt-btn" [disabled]="!(auth.isOnline$ | async)">Nowa gra</button>
+    <button mat-raised-button color="primary" (click)="newGame()" class="opt-btn"
+      [disabled]="!(auth.isAuthenticated$ | async)">Nowa gra</button>
 
     <button mat-raised-button *ngIf="!!lastGameToken" color="green" (click)="joinGame(lastGameToken)" class="opt-btn">
       <span>Wróć do ostatniej gry</span>
@@ -15,7 +16,8 @@
         <input matInput type="text" [(ngModel)]="gameCode" name="gameCode" maxlength="6" appUppercase #gameCodeInput />
       </mat-form-field>
 
-      <button mat-raised-button color="green" (click)="joinGame(gameCode)" class="opt-btn" [disabled]="!gameCode || gameCode.length < 3">
+      <button mat-raised-button color="green" (click)="joinGame(gameCode)" class="opt-btn"
+        [disabled]="!gameCode || gameCode.length < 3">
         <span>Dołącz do gry</span>
       </button>
     </div>

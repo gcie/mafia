@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { forkJoin, Subscription } from 'rxjs';
 import { first } from 'rxjs/operators';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { StorageService } from 'src/app/core/services/storage.service';
@@ -11,29 +11,30 @@ import { StorageService } from 'src/app/core/services/storage.service';
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit, OnDestroy {
-  nickname: string;
-  redirect$: Subscription;
+  nickname?: string;
+  redirectSub: Subscription;
 
   constructor(private auth: AuthService, private router: Router, private storage: StorageService) {}
 
   async ngOnInit() {
-    this.redirect$ = this.auth.currentUser$.pipe(first((user) => !!user)).subscribe(() => {
+    this.redirectSub = this.auth.user$.pipe(first((user) => !!user)).subscribe(() => {
       this.router.navigateByUrl('/home');
     });
 
-    const nickname = await this.storage.getNickname();
-    const lastNickname = await this.storage.getLastNickname();
-    this.nickname = nickname || lastNickname;
-    if (nickname) {
-      this.nicknameSignIn();
-    }
+    forkJoin([this.storage.getNickname(), this.storage.getLastNickname()]).subscribe(([nickname, lastNickname]) => {
+      this.nickname = nickname || lastNickname;
+      if (nickname) {
+        this.nicknameSignIn();
+      }
+    });
   }
 
   ngOnDestroy() {
-    this.redirect$.unsubscribe();
+    this.redirectSub.unsubscribe();
   }
 
   nicknameSignIn() {
+    if (!this.nickname) throw Error('Nickname cannot be empty');
     this.auth.nicknameSignIn(this.nickname).subscribe(this.successRedirect.bind(this));
   }
 

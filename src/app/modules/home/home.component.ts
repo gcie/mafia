@@ -1,4 +1,4 @@
-import { AfterViewInit, Component } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -12,23 +12,20 @@ import { StorageService } from 'src/app/core/services/storage.service';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
 })
-export class HomeComponent implements AfterViewInit {
+export class HomeComponent {
   gameCode: string;
-  username: Observable<string>;
+  username: Observable<string> = this.auth.user$.pipe(map((user) => user?.displayName || ''));
   lastGameToken?: string;
 
   constructor(
-    private auth: AuthService,
+    public auth: AuthService,
     private game: GameService,
     private router: Router,
     private dialog: DialogService,
     storage: StorageService
   ) {
-    this.username = this.auth.currentUser$.pipe(map((user) => user?.name));
-    storage.getGameToken().then((token) => (this.lastGameToken = token));
+    storage.getGameToken().subscribe((token) => (this.lastGameToken = token));
   }
-
-  ngAfterViewInit() {}
 
   logout() {
     this.auth.signOut();
@@ -53,7 +50,11 @@ export class HomeComponent implements AfterViewInit {
 
     try {
       await this.game.joinGame(token);
-      await this.router.navigateByUrl('/game/player');
+      if (this.game.isMaster) {
+        await this.router.navigateByUrl('/game/master');
+      } else {
+        await this.router.navigateByUrl('/game/player');
+      }
     } catch (err) {
       console.error(err);
       this.dialog.notification('Nie znaleziono gry!');

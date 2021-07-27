@@ -9,6 +9,6 @@ export class AuthResolver implements Resolve<void> {
   constructor(private auth: AuthService) {}
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> | Promise<any> | any {
-    return this.auth.authState$.pipe(first((authState) => authState.resolved));
+    return this.auth.resolved$.pipe(first((x) => x));
   }
 }

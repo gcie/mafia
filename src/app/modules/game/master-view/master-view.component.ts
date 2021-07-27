@@ -12,6 +12,6 @@ export class MasterViewComponent {
   token: Observable<string>;
 
   constructor(gameSrv: GameService) {
-    this.token = gameSrv.activeGame.pipe(map((game) => game.token));
+    this.token = gameSrv.game$.pipe(map((game) => game?.token || ''));
   }
 }

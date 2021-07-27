@@ -1,73 +1,77 @@
-import { Injectable, NgZone } from '@angular/core';
+import { Injectable } from '@angular/core';
+import { AngularFireAuth } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 import { cfaSignIn, cfaSignOut, mapUserToUserInfo } from 'capacitor-firebase-auth';
-import { auth, UserInfo } from 'firebase';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { User } from '../models/user';
 import { StorageService } from './storage.service';
-
-export interface User {
-  name: string;
-  email?: string;
-  uid?: string;
-}
-
-export interface AuthState {
-  resolved: boolean;
-  online: boolean;
-  user: User;
-}
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  authState$: BehaviorSubject<AuthState> = new BehaviorSubject({ resolved: false, user: null, online: false });
-  currentUser$: Observable<User> = this.authState$.pipe(map((authState) => authState?.user));
-  isOnline$: Observable<boolean> = this.authState$.pipe(map(({ online }) => online));
+  /** Info whether the auth state is ready */
+  public resolved$ = new BehaviorSubject(false);
+  public get resolved() {
+    return this.resolved$.value;
+  }
+  private set resolved(value) {
+    this.resolved$.next(value);
+  }
 
-  constructor(private router: Router, private ngZone: NgZone, private storage: StorageService) {
-    auth().onAuthStateChanged((authState) => {
-      if (authState) {
-        of(authState)
-          .pipe(mapUserToUserInfo())
-          .subscribe((user: UserInfo) => {
-            this.authState$.next({ resolved: true, online: true, user: { name: user.displayName, email: user.email, uid: user.uid } });
-          });
-      }
+  /** Currently logged in user data */
+  public user$: BehaviorSubject<User | null> = new BehaviorSubject(null);
+  public get user() {
+    return this.user$.value;
+  }
+  private set user(value) {
+    this.user$.next(value);
+  }
+
+  /** Checks if user is properly authenticated (not by nickname sign-in) */
+  public isAuthenticated() {
+    return !!this.user?.uid;
+  }
+  public isAuthenticated$ = this.user$.pipe(map((user) => !!user?.uid));
+
+  constructor(private router: Router, private storage: StorageService, private auth: AngularFireAuth) {
+    this.auth.authState.subscribe((authState) => {
+      this.resolved = true;
+      this.user = {
+        displayName: authState?.displayName || '',
+        email: authState?.email,
+        uid: authState?.uid,
+      };
     });
   }
 
+  /** Sign in with nickname only */
   public nicknameSignIn(nickname: string): Observable<User> {
-    const user: User = { name: nickname, email: null };
-    this.authState$.next({ resolved: true, user, online: false });
+    this.resolved = true;
+    this.user = { displayName: nickname };
     this.storage.setNickname(nickname);
     this.storage.setLastNickname(nickname);
-    return of(user);
+    return of(this.user);
   }
 
+  /** Sign in with google */
   public googleSignIn(): Observable<User> {
     return cfaSignIn('google.com').pipe(
       mapUserToUserInfo(),
-      map(({ displayName, email, uid }) => ({ name: displayName, email, uid }))
+      map((userInfo) => ({ ...userInfo, displayName: userInfo.displayName || '' }))
     );
   }
 
-  public signOut(): void {
+  /** Sign out and navigate to login page */
+  public signOut() {
     this.storage.deleteNickname();
-    const authState = this.authState$.value;
+    this.user = null;
 
-    console.log(authState);
-
-    if (authState.user) {
-      if (authState.online) {
-        cfaSignOut().subscribe(() => {
-          this.router.navigateByUrl('/login');
-        });
-      } else {
-        this.authState$.next({ resolved: true, user: null, online: false });
+    if (this.isAuthenticated()) {
+      cfaSignOut().subscribe(() => {
         this.router.navigateByUrl('/login');
-      }
+      });
     }
   }
 }

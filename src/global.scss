@@ -26,7 +26,7 @@
 @import '~@ionic/angular/css/flex-utils.css';
 
 @import '~@angular/material/theming';
-@import '@angular/cdk/_text-field';
+@import '~@angular/cdk/text-field';
 // Plus imports for other components in your app.
 @import './theme/app-theme.scss';
 @import './theme/typography.scss';
