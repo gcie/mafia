@@ -1,7 +1,8 @@
+import { DatePipe } from '@angular/common';
 import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireAuthModule } from '@angular/fire/auth';
-import { AngularFirestoreModule, SETTINGS } from '@angular/fire/firestore';
+import { AngularFirestore, AngularFirestoreModule, SETTINGS } from '@angular/fire/firestore';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouteReuseStrategy } from '@angular/router';
@@ -34,6 +35,7 @@ function appLoadFactory(config: ConfigService) {
   providers: [
     StatusBar,
     SplashScreen,
+    DatePipe,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     { provide: SETTINGS, useValue: environment.firebase },
     {
@@ -42,7 +44,7 @@ function appLoadFactory(config: ConfigService) {
       deps: [ConfigService],
       multi: true,
     },
-    { provide: PID, useFactory: (config: ConfigService) => config.pid, deps: [ConfigService] },
+    { provide: PID, useFactory: (config: ConfigService) => config.pid, deps: [ConfigService, AngularFirestore] },
   ],
   bootstrap: [AppComponent],
 })

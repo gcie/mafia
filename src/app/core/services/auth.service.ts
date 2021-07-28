@@ -5,6 +5,7 @@ import { cfaSignIn, cfaSignOut, mapUserToUserInfo } from 'capacitor-firebase-aut
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { User } from '../models/user';
+import { Logger } from './logger.service';
 import { StorageService } from './storage.service';
 
 @Injectable({
@@ -26,6 +27,7 @@ export class AuthService {
     return this.user$.value;
   }
   private set user(value) {
+    this.logger.debug('user', value);
     this.user$.next(value);
   }
 
@@ -35,14 +37,16 @@ export class AuthService {
   }
   public isAuthenticated$ = this.user$.pipe(map((user) => !!user?.uid));
 
-  constructor(private router: Router, private storage: StorageService, private auth: AngularFireAuth) {
+  constructor(private router: Router, private storage: StorageService, private auth: AngularFireAuth, private logger: Logger) {
     this.auth.authState.subscribe((authState) => {
       this.resolved = true;
-      this.user = {
-        displayName: authState?.displayName || '',
-        email: authState?.email,
-        uid: authState?.uid,
-      };
+      this.user = authState
+        ? {
+            displayName: authState?.displayName || '',
+            email: authState?.email,
+            uid: authState?.uid,
+          }
+        : null;
     });
   }
 
@@ -66,12 +70,14 @@ export class AuthService {
   /** Sign out and navigate to login page */
   public signOut() {
     this.storage.deleteNickname();
-    this.user = null;
 
     if (this.isAuthenticated()) {
       cfaSignOut().subscribe(() => {
         this.router.navigateByUrl('/login');
       });
+    } else {
+      this.user = null;
+      this.router.navigateByUrl('/login');
     }
   }
 }
