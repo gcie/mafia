@@ -18,6 +18,10 @@ service cloud.firestore {
       allow create, read: if true
     }
 
+    match /config/{config=**} {
+      allow read: if true
+    }
+
     function isGameMaster(token) {
       return request.auth.uid == get(/databases/$(database)/documents/games/$(token)).data.master.uid
     }
