@@ -6,17 +6,32 @@ import { RouterModule, Routes } from '@angular/router';
 import { GameMasterGuard } from 'src/app/core/guards/game-master.guard';
 import { GamePlayerGuard } from 'src/app/core/guards/game-player.guard';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { GameGuard } from '../../core/guards/game.guard';
 import { MaterialModule } from '../material.module';
 import { MasterViewComponent } from './master-view/master-view.component';
 import { PlayerViewComponent } from './player-view/player-view.component';
+import { MasterWaitingRoomComponent } from './views/master-waiting-room/master-waiting-room.component';
+import { PlayerWaitingRoomComponent } from './views/player-waiting-room/player-waiting-room.component';
 
 const routes: Routes = [
-  { path: 'player', component: PlayerViewComponent, canActivate: [GamePlayerGuard] },
-  { path: 'master', component: MasterViewComponent, canActivate: [GameMasterGuard] },
+  {
+    path: 'player',
+    component: PlayerViewComponent,
+    canActivate: [GamePlayerGuard],
+    children: [{ path: 'waiting-room', component: PlayerWaitingRoomComponent }],
+  },
+  {
+    path: 'master',
+    component: MasterViewComponent,
+    canActivate: [GameMasterGuard],
+    children: [{ path: 'waiting-room', component: MasterWaitingRoomComponent }],
+  },
+  { path: '**', redirectTo: 'player/waiting-room' },
 ];
 
 @NgModule({
-  declarations: [PlayerViewComponent, MasterViewComponent],
+  declarations: [PlayerViewComponent, MasterViewComponent, PlayerWaitingRoomComponent, MasterWaitingRoomComponent],
+  providers: [GameGuard],
   imports: [CommonModule, MaterialModule, FormsModule, ReactiveFormsModule, FlexLayoutModule, SharedModule, RouterModule.forChild(routes)],
 })
 export class GameModule {}

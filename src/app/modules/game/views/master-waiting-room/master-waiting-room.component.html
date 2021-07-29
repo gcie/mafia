@@ -1,0 +1,13 @@
+<div fxLayout="column" class="bg" fxLayoutAlign="start center" style="padding: 24px">
+  <div class="mat-display-2 header">Kod: {{ token | async }}</div>
+  <!-- <div class="players-wrapper" fxLayout="column">
+    <app-player *ngFor="let player of (players | async)" [player]="player"></app-player>
+  </div> -->
+  <mat-divider></mat-divider>
+  <ng-container *ngFor="let player of (players | async)">
+    <p>{{ player.name }}</p>
+    <mat-divider></mat-divider>
+  </ng-container>
+  <div fxFlex></div>
+  <button mat-stroked-button (click)="leave()">Wyjdź</button>
+</div>

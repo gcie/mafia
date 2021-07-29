@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
-import { PlayerViewComponent } from './player-view.component';
+import { PlayerWaitingRoomComponent } from './player-waiting-room.component';
 
-describe('PlayerViewComponent', () => {
-  let component: PlayerViewComponent;
-  let fixture: ComponentFixture<PlayerViewComponent>;
+describe('PlayerWaitingRoomComponent', () => {
+  let component: PlayerWaitingRoomComponent;
+  let fixture: ComponentFixture<PlayerWaitingRoomComponent>;
 
   beforeEach(
     waitForAsync(() => {
       TestBed.configureTestingModule({
-        declarations: [PlayerViewComponent],
+        declarations: [PlayerWaitingRoomComponent],
         imports: [IonicModule.forRoot()],
       }).compileComponents();
 
-      fixture = TestBed.createComponent(PlayerViewComponent);
+      fixture = TestBed.createComponent(PlayerWaitingRoomComponent);
       component = fixture.componentInstance;
       fixture.detectChanges();
     })

@@ -39,7 +39,7 @@ export class AuthService {
 
   constructor(private router: Router, private storage: StorageService, private auth: AngularFireAuth, private logger: Logger) {
     this.auth.authState.subscribe((authState) => {
-      this.resolved = true;
+      this.logger.debug('AuthService auth state', authState);
       this.user = authState
         ? {
             displayName: authState?.displayName || '',
@@ -47,6 +47,7 @@ export class AuthService {
             uid: authState?.uid,
           }
         : null;
+      this.resolved = true;
     });
   }
 

@@ -5,12 +5,12 @@ service cloud.firestore {
     match /games/{token} {
       allow get: if true
       allow list: if authenticated()
-      allow update: if isGameMaster(token)
+      allow update, delete: if isGameMaster(token)
       allow create: if request.auth.uid == request.resource.data.master.uid
     }
 
     match /games/{token}/players/{pid} {
-      allow get, create, update: if true
+      allow get, create, update, delete: if true
       allow list: if isGameMaster(token)
     }
     

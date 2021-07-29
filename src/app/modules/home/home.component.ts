@@ -5,12 +5,14 @@ import { map } from 'rxjs/operators';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { DialogService } from 'src/app/core/services/dialog.service';
 import { GameService } from 'src/app/core/services/game.service';
+import { Logger, LOGGER_PREFIX } from 'src/app/core/services/logger.service';
 import { StorageService } from 'src/app/core/services/storage.service';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
+  providers: [{ provide: LOGGER_PREFIX, useValue: 'HomeComponent' }, { provide: Logger }],
 })
 export class HomeComponent {
   gameCode: string;
@@ -22,6 +24,7 @@ export class HomeComponent {
     private game: GameService,
     private router: Router,
     private dialog: DialogService,
+    private logger: Logger,
     storage: StorageService
   ) {
     storage.getGameToken().subscribe((token) => (this.lastGameToken = token));
@@ -35,8 +38,8 @@ export class HomeComponent {
     const loader = this.dialog.loadingDialog('Tworzenie nowej gry...');
 
     try {
-      await this.game.newGame();
-      await this.router.navigateByUrl('/game/master');
+      const token = await this.game.newGame();
+      await this.router.navigateByUrl(`/game/${token}/master/waiting-room`);
     } catch (err) {
       console.error(err);
       this.dialog.notification('Nie udało się utworzyć nowej gry!');
@@ -47,14 +50,11 @@ export class HomeComponent {
 
   async joinGame(token: string) {
     const loader = this.dialog.loadingDialog('Dołączanie do gry...');
+    this.logger.debug(`Dołączanie do gry ${token}`);
 
     try {
-      await this.game.joinGame(token);
-      if (this.game.isMaster) {
-        await this.router.navigateByUrl('/game/master');
-      } else {
-        await this.router.navigateByUrl('/game/player');
-      }
+      // await this.game.joinGame(token);
+      await this.router.navigateByUrl(`/game/${token}`);
     } catch (err) {
       console.error(err);
       this.dialog.notification('Nie znaleziono gry!');

@@ -1,0 +1,12 @@
+<div fxLayout="column" class="bg" fxLayoutAlign="space-between center" style="padding: 24px">
+  <div class="mat-display-2 header">Poczekalnia</div>
+
+  <div fxLayout="column" fxLayouAlign="center center" class="content-wrapper">
+    <p class="notification">Trwa oczekiwanie aż mistrz gry rozpocznie grę...</p>
+    <div class="spinner-wrapper">
+      <mat-spinner diameter="50"></mat-spinner>
+    </div>
+  </div>
+
+  <button mat-stroked-button (click)="leave()">Wyjdź</button>
+</div>
