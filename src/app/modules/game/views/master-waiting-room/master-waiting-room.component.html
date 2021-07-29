@@ -1,13 +1,25 @@
 <div fxLayout="column" class="bg" fxLayoutAlign="start center" style="padding: 24px">
   <div class="mat-display-2 header">Kod: {{ token | async }}</div>
-  <!-- <div class="players-wrapper" fxLayout="column">
-    <app-player *ngFor="let player of (players | async)" [player]="player"></app-player>
-  </div> -->
-  <mat-divider></mat-divider>
-  <ng-container *ngFor="let player of (players | async)">
-    <p>{{ player.name }}</p>
-    <mat-divider></mat-divider>
-  </ng-container>
+  <p>Liczba graczy: {{ numberOfSelectedPlayers }}</p>
+  <div class="players-wrapper scrollable" fxLayout="column">
+    <mat-divider *ngIf="players.length > 0"></mat-divider>
+    <ng-container *ngFor="let player of players">
+      <span fxLayout="row" fxLayoutAlign="start center">
+        <mat-checkbox [(ngModel)]="selectedPlayers[player.pid]" (ngModelChange)="updateNumberOfSelectedPlayers()">
+          <p class="player-name">
+            {{ player.name }}
+          </p>
+        </mat-checkbox>
+        <div fxFlex></div>
+        <button mat-icon-button>
+          <mat-icon class="material-icons-outlined">
+            more_vert
+          </mat-icon>
+        </button>
+      </span>
+      <mat-divider></mat-divider>
+    </ng-container>
+  </div>
   <div fxFlex></div>
-  <button mat-stroked-button (click)="leave()">Wyjdź</button>
+  <button mat-stroked-button (click)="leave()" style="margin-top: 8px;">Wyjdź</button>
 </div>
