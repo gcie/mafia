@@ -10,6 +10,7 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "deploy:rules": "firebase deploy --only firestore:rules",
+    "deploy": "firebase deploy",
     "format": "prettier --write ./**/*.scss --parser=scss && prettier --write ./**/*.json --parser=json && prettier --write ./**/*.ts --parser=typescript && prettier --write ./**/*.html --parser=html"
   },
   "private": true,
