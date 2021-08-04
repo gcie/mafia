@@ -51,7 +51,7 @@ input {
 }
 
 .bg {
-  overflow: scroll;
+  overflow: auto;
   top: 0;
   left: 0;
   height: 100vh;
@@ -61,7 +61,7 @@ input {
 }
 
 .scrollable {
-  overflow: scroll;
+  overflow: auto;
 }
 
 button.mat-green {
