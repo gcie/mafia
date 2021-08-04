@@ -1,0 +1,11 @@
+<div class="setting" fxLayout="row">
+  <div class="label">
+    <span>{{ label }}</span>
+  </div>
+  <div class="attr" fxFlex>
+    <ng-content></ng-content>
+  </div>
+  <button mat-icon-button *ngIf="editable" class="button-small">
+    <mat-icon class="material-icons-outlined" (click)="edit.emit()">edit</mat-icon>
+  </button>
+</div>

@@ -8,6 +8,8 @@ import { GamePlayerGuard } from 'src/app/core/guards/game-player.guard';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { GameGuard } from '../../core/guards/game.guard';
 import { MaterialModule } from '../material.module';
+import { SelectConfigurationDialogComponent } from './components/select-configuration-dialog/select-configuration-dialog.component';
+import { SelectFractionsDialogComponent } from './components/select-fractions-dialog/select-fractions-dialog.component';
 import { MasterViewComponent } from './master-view/master-view.component';
 import { PlayerViewComponent } from './player-view/player-view.component';
 import { MasterWaitingRoomComponent } from './views/master-waiting-room/master-waiting-room.component';
@@ -30,7 +32,14 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [PlayerViewComponent, MasterViewComponent, PlayerWaitingRoomComponent, MasterWaitingRoomComponent],
+  declarations: [
+    PlayerViewComponent,
+    MasterViewComponent,
+    PlayerWaitingRoomComponent,
+    MasterWaitingRoomComponent,
+    SelectFractionsDialogComponent,
+    SelectConfigurationDialogComponent,
+  ],
   providers: [GameGuard],
   imports: [CommonModule, MaterialModule, FormsModule, ReactiveFormsModule, FlexLayoutModule, SharedModule, RouterModule.forChild(routes)],
 })

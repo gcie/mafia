@@ -63,3 +63,63 @@ $blue-grey-900: (
     light: $light-primary-text,
   ),
 );
+
+$blue-grey-800: (
+  dark: #102027,
+  default: #37474f,
+  light: #62727b,
+  constrast: (
+    dark: $light-primary-text,
+    default: $light-primary-text,
+    light: $light-primary-text,
+  ),
+);
+
+$blue-grey-400: (
+  default: #607d8b,
+  dark: #4b636e,
+  light: #a7c0cd,
+  contrast: (
+    dark: $light-primary-text,
+    default: $dark-primary-text,
+    light: $dark-primary-text,
+  ),
+);
+
+$red-600: (
+  dark: #ab000d,
+  default: #e53935,
+  light: #ff6f60,
+  contrast: (
+    dark: $light-primary-text,
+    default: $dark-primary-text,
+    light: $dark-primary-text,
+  ),
+);
+
+$blue-600: (
+  dark: #00227b,
+  default: #3949ab,
+  light: #6f74dd,
+  contrast: (
+    dark: $light-primary-text,
+    default: $light-primary-text,
+    light: $dark-primary-text,
+  ),
+);
+
+$green-600: (
+  default: #43a047,
+  dark: #00701a,
+  light: #76d275,
+  contrast: (
+    dark: $light-primary-text,
+    default: $dark-primary-text,
+    light: $dark-primary-text,
+  ),
+);
+
+$miasto: $green-600;
+$mafia: $red-600;
+$mafia-alt: $blue-600;
+$syndykat: $blue-grey-400;

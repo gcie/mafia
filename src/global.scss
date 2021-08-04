@@ -77,3 +77,65 @@ input:-webkit-autofill:active {
   -webkit-box-shadow: 0 0 0 30px #303030 inset !important;
   -webkit-text-fill-color: white !important;
 }
+
+.button-small {
+  .mat-icon-button,
+  .mat-icon-wrapper {
+    width: 24px;
+    height: 24px;
+    line-height: 24px;
+  }
+
+  mat-icon {
+    font-size: 18px;
+    line-height: 20px !important;
+  }
+}
+
+.miasto {
+  .mat-slider-thumb,
+  .mat-slider-thumb-label,
+  .mat-slider-track-fill {
+    background-color: map-get($miasto, default);
+  }
+}
+p.miasto,
+span.miasto {
+  color: map-get($miasto, light);
+}
+
+.mafia {
+  .mat-slider-thumb,
+  .mat-slider-thumb-label,
+  .mat-slider-track-fill {
+    background-color: map-get($mafia, default);
+  }
+}
+p.mafia,
+span.mafia {
+  color: map-get($mafia, light);
+}
+
+.mafia-alt {
+  .mat-slider-thumb,
+  .mat-slider-thumb-label,
+  .mat-slider-track-fill {
+    background-color: map-get($mafia-alt, default);
+  }
+}
+p.mafia-alt,
+span.mafia-alt {
+  color: map-get($mafia-alt, light);
+}
+
+.syndykat {
+  .mat-slider-thumb,
+  .mat-slider-thumb-label,
+  .mat-slider-track-fill {
+    background-color: map-get($syndykat, default);
+  }
+}
+p.syndykat,
+span.syndykat {
+  color: map-get($syndykat, light);
+}

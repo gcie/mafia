@@ -1,10 +1,16 @@
 .players-wrapper {
-    margin: 0 16px;
-    width: 90%;
-    max-width: 400px;
+  margin: 0 16px;
+  width: 90%;
+  max-width: 400px;
 }
 
 .player-name {
-    margin: 8px 0;
-    white-space: nowrap;
+  margin: 8px 0;
+  white-space: nowrap;
+}
+
+.settings-wrapper {
+  width: 90%;
+  max-width: 400px;
+  margin-bottom: 16px;
 }

@@ -1,6 +1,23 @@
 <div fxLayout="column" class="bg" fxLayoutAlign="start center" style="padding: 24px">
   <div class="mat-display-2 header">Kod: {{ token | async }}</div>
-  <p>Liczba graczy: {{ numberOfSelectedPlayers }}</p>
+
+  <div class="settings-wrapper">
+    <app-attribute label="Frakcje" editable (edit)="editFractions()">{{ fractionsDesc }}</app-attribute>
+    <app-attribute label="Konfiguracja" editable (edit)="editConfiguration()">
+      <span [innerHTML]="configDesc"></span>
+    </app-attribute>
+    <app-attribute label="Liczba graczy" [value]="numberOfSelectedPlayers">
+      <ng-container *ngIf="config.auto">
+        {{ numberOfSelectedPlayers }}
+      </ng-container>
+      <ng-container *ngIf="!config.auto">
+        <span [ngClass]="{mafia:numberOfSelectedPlayers!=numberOfRequiredPlayers}">
+          {{ numberOfSelectedPlayers }}
+        </span> / {{ numberOfRequiredPlayers }}
+      </ng-container>
+    </app-attribute>
+  </div>
+
   <div class="players-wrapper scrollable" fxLayout="column">
     <mat-divider *ngIf="players.length > 0"></mat-divider>
     <ng-container *ngFor="let player of players">

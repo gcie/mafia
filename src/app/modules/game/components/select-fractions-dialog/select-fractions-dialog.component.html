@@ -1,0 +1,19 @@
+<div mat-dialog-content class="dialog-content">
+  <mat-radio-group aria-label="Select an option" [(ngModel)]="fractionConfig" class="radio-group">
+    <div *ngFor="let option of options" fxLayout="row" fxLayoutAlign="start center">
+      <mat-radio-button [value]="option.config" class="radio-button" [disabled]="option.disabled">
+        {{ option.display }}
+      </mat-radio-button>
+      <div fxFlex></div>
+      <button mat-icon-button class="button-small" (click)="showInfo(option)">
+        <mat-icon class="material-icons-outlined">
+          help
+        </mat-icon>
+      </button>
+    </div>
+  </mat-radio-group>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="close()">Anuluj</button>
+  <button mat-button [mat-dialog-close]="fractionConfig" cdkFocusInitial>Zapisz</button>
+</div>

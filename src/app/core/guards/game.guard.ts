@@ -12,7 +12,7 @@ export class GameGuard implements CanActivate {
 
   async canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Promise<boolean | UrlTree> {
     const token = route.params.token;
-    if (!!this.gameSrv.game && (this.gameSrv.player || this.gameSrv.isMaster)) return true;
+    if (!!this.gameSrv.game && this.gameSrv.game.token == token && (this.gameSrv.player || this.gameSrv.isMaster)) return true;
     await this.gameSrv.joinGame(token);
     const path = `/game/${token}/${this.gameSrv.isMaster ? 'master' : 'player'}/waiting-room`;
     this.logger.debug('GameGuard', 'redirecting to', path);

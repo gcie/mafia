@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
-import { MasterWaitingRoomComponent } from './master-waiting-room.component';
+import { SelectConfigurationDialogComponent } from './select-configuration-dialog.component';
 
-describe('MasterWaitingRoomComponent', () => {
-  let component: MasterWaitingRoomComponent;
-  let fixture: ComponentFixture<MasterWaitingRoomComponent>;
+describe('SelectConfigurationDialogComponent', () => {
+  let component: SelectConfigurationDialogComponent;
+  let fixture: ComponentFixture<SelectConfigurationDialogComponent>;
 
   beforeEach(
     waitForAsync(() => {
       TestBed.configureTestingModule({
-        declarations: [MasterWaitingRoomComponent],
+        declarations: [SelectConfigurationDialogComponent],
         imports: [IonicModule.forRoot()],
       }).compileComponents();
 
-      fixture = TestBed.createComponent(MasterWaitingRoomComponent);
+      fixture = TestBed.createComponent(SelectConfigurationDialogComponent);
       component = fixture.componentInstance;
       fixture.detectChanges();
     })

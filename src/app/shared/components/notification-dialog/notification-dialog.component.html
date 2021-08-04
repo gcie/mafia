@@ -1,6 +1,6 @@
 <div mat-dialog-content class="dialog-wrapper" fxLayout="column" fxLayoutAlign="start center">
-  <span class="material-icons"> warning </span>
-  <p class="message">{{ message }}</p>
+  <span class="material-icons" *ngIf="mode == 'warn'"> warning </span>
+  <p class="message" [innerHTML]="message"></p>
 </div>
 <div mat-dialog-actions align="center">
   <button mat-button mat-dialog-close cdkFocusInitial>{{ closeButton }}</button>

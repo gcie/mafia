@@ -1,0 +1,39 @@
+<div class="container" fxLayout="column" fxLayoutGap="8px">
+
+    <mat-checkbox [(ngModel)]="auto">Auto</mat-checkbox>
+
+    <div fxLayout="row" fxLayoutAlign="center center">
+        <div fxLayout="column" fxLayoutAlign="start center" class="miasto slider-container">
+            <p class="miasto">Miasto</p>
+            <mat-slider max="20" step thumbLabel [(ngModel)]="miasto" vertical [disabled]="auto">
+            </mat-slider>
+            <p class="miasto">{{ auto?'-':miasto }}</p>
+        </div>
+        <div fxLayout="column" fxLayoutAlign="start center" class="mafia slider-container">
+            <p class="mafia">Mafia</p>
+            <mat-slider max="10" step thumbLabel [(ngModel)]="mafia" vertical [disabled]="auto">
+            </mat-slider>
+            <p class="mafia">{{ auto?'-':mafia }}</p>
+        </div>
+        <div *ngIf="isMafia2" fxLayout="column" fxLayoutAlign="start center" class="mafia-alt slider-container">
+            <p class="mafia-alt">Mafia 2</p>
+            <mat-slider max="10" step thumbLabel [(ngModel)]="mafia2" vertical [disabled]="auto">
+            </mat-slider>
+            <p class="mafia-alt">{{ auto?'-':mafia2 }}</p>
+        </div>
+        <div *ngIf="isSyndykat" fxLayout="column" fxLayoutAlign="start center" class="syndykat slider-container">
+            <p class="syndykat">Syndykat</p>
+            <mat-slider max="10" step thumbLabel [(ngModel)]="syndykat" vertical [disabled]="auto">
+            </mat-slider>
+            <p class="syndykat">{{ auto?'-':syndykat }}</p>
+        </div>
+    </div>
+
+    <app-attribute label="Liczba graczy">
+        {{ auto ? 'dowolna' : miasto+mafia+(isMafia2?mafia2:0)+(isSyndykat?syndykat:0) }}
+    </app-attribute>
+    <div fxLayout="row" fxFlexAlign="center">
+        <button mat-button (click)="close()">Anuluj</button>
+        <button mat-button [mat-dialog-close]="config" cdkFocusInitial>Zapisz</button>
+    </div>
+</div>
