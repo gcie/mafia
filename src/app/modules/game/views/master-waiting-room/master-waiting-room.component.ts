@@ -2,9 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import produce from 'immer';
-import * as _ from 'lodash';
-import { Observable, Subscription } from 'rxjs';
-import { distinctUntilChanged, map, tap } from 'rxjs/operators';
+import { Observable, of, Subscription } from 'rxjs';
 import { containsFraction, Fraction, FractionConfigurationEnum, getFractionData } from 'src/app/core/models/fractions';
 import { GameConfiguration } from 'src/app/core/models/game-configuration';
 import { GameService } from 'src/app/core/services/game.service';
@@ -38,7 +36,7 @@ export class MasterWaitingRoomComponent implements OnInit, OnDestroy {
     syndykat: 5,
   };
 
-  token: Observable<string> = this.gameSrv.game$.pipe(map((game) => game?.token || ''));
+  token: Observable<string> = of(''); // this.gameSrv.game$.pipe(map((game) => game?.token || ''));
   players: { name: string; pid: string; selected: boolean }[] = [];
 
   selectedPlayers: { [pid: string]: boolean } = {};
@@ -57,17 +55,17 @@ export class MasterWaitingRoomComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.playersSub = this.gameSrv.game$
-      .pipe(
-        map((game) => game?.players || []),
-        map(
-          (players) => players.map((player) => ({ name: player.name, pid: player.pid, selected: this.selectedPlayers[player.pid] })) || []
-        ),
-        distinctUntilChanged(_.isEqual),
-        tap((players) => this.logger.debug('players', players)),
-        tap((players) => (this.players = players))
-      )
-      .subscribe((_) => this.updateNumberOfSelectedPlayers());
+    // this.playersSub = this.gameSrv.game$
+    //   .pipe(
+    //     map((game) => game?.players || []),
+    //     map(
+    //       (players) => players.map((player) => ({ name: player.name, pid: player.pid, selected: this.selectedPlayers[player.pid] })) || []
+    //     ),
+    //     distinctUntilChanged(_.isEqual),
+    //     tap((players) => this.logger.debug('players', players)),
+    //     tap((players) => (this.players = players))
+    //   )
+    //   .subscribe((_) => this.updateNumberOfSelectedPlayers());
   }
 
   ngOnDestroy() {
@@ -75,7 +73,7 @@ export class MasterWaitingRoomComponent implements OnInit, OnDestroy {
   }
 
   leave() {
-    this.gameSrv.leaveGame();
+    // this.gameSrv.leaveGame();
     this.router.navigateByUrl('/home');
   }
 

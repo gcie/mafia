@@ -14,7 +14,8 @@ export class GameMasterGuard implements CanActivate {
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    const activeGame = this.gameService.game;
-    return (activeGame && activeGame.master.pid === this.pid) || this.router.createUrlTree(['/home']);
+    // const activeGame = this.gameService.game;
+    // return (activeGame && activeGame.master.pid === this.pid) || this.router.createUrlTree(['/home']);
+    return true;
   }
 }

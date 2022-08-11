@@ -1,12 +1,15 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { Actions, ofType } from '@ngrx/effects';
+import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, take } from 'rxjs/operators';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { DialogService } from 'src/app/core/services/dialog.service';
-import { GameService } from 'src/app/core/services/game.service';
 import { Logger, LOGGER_PREFIX } from 'src/app/core/services/logger.service';
 import { StorageService } from 'src/app/core/services/storage.service';
+import { AppActions, State } from 'src/app/core/state';
+import { GameActions } from '../game/state';
 
 @Component({
   selector: 'app-home',
@@ -21,7 +24,8 @@ export class HomeComponent {
 
   constructor(
     public auth: AuthService,
-    private game: GameService,
+    private state: Store<State>,
+    private actions$: Actions,
     private router: Router,
     private dialog: DialogService,
     private logger: Logger,
@@ -31,21 +35,25 @@ export class HomeComponent {
   }
 
   logout() {
-    this.auth.signOut();
+    this.actions$.pipe(ofType(AppActions.signOutSuccess), take(1)).subscribe(() => this.router.navigateByUrl('/login'));
+    this.state.dispatch(AppActions.signOut());
   }
 
   async newGame() {
-    const loader = this.dialog.loadingDialog('Tworzenie nowej gry...');
+    this.state.dispatch(GameActions.createGame());
+    this.actions$.pipe(ofType(GameActions.createGameSuccess)).subscribe(() => this.logger.debug('SUCCESS'));
 
-    try {
-      const token = await this.game.newGame();
-      await this.router.navigateByUrl(`/game/${token}/master/waiting-room`);
-    } catch (err) {
-      console.error(err);
-      this.dialog.notification('Nie udało się utworzyć nowej gry!');
-    } finally {
-      loader.close();
-    }
+    // const loader = this.dialog.loadingDialog('Tworzenie nowej gry...');
+
+    // try {
+    //   const token = await this.game.newGame();
+    //   await this.router.navigateByUrl(`/game/${token}/master/waiting-room`);
+    // } catch (err) {
+    //   console.error(err);
+    //   this.dialog.notification('Nie udało się utworzyć nowej gry!');
+    // } finally {
+    //   loader.close();
+    // }
   }
 
   async joinGame(token: string) {

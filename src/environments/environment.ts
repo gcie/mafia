@@ -2,6 +2,8 @@
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
+import { LogLevel } from 'src/app/core/services/logger.service';
+
 export const environment = {
   production: false,
   firebase: {
@@ -12,6 +14,9 @@ export const environment = {
     storageBucket: 'mafia-gd.appspot.com',
     messagingSenderId: '888055194384',
     appId: '1:888055194384:android:fa4e7d453ac734814cbb95',
+  },
+  logging: {
+    level: LogLevel.DEBUG,
   },
 };
 

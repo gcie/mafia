@@ -1,20 +1,22 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, Router, UrlTree } from '@angular/router';
+import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { filter, map } from 'rxjs/operators';
-import { AuthService } from '../services/auth.service';
-import { Logger } from '../services/logger.service';
+import { map, switchMap } from 'rxjs/operators';
+import { positive } from '../models/operators';
+import { AppSelectors, State } from '../state';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthGuard implements CanActivate {
-  constructor(private auth: AuthService, private router: Router, private logger: Logger) {}
+  constructor(private state: Store<State>, private router: Router) {}
 
   canActivate(): Observable<boolean | UrlTree> {
-    return this.auth.resolved$.pipe(
-      filter((x) => x),
-      map(() => !!this.auth.user || this.router.parseUrl('/login'))
+    return this.state.select(AppSelectors.isAuthResolved).pipe(
+      positive(),
+      switchMap(() => this.state.select(AppSelectors.getUser)),
+      map((user) => !!user || this.router.parseUrl('/login'))
     );
   }
 }

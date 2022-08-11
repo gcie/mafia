@@ -51,6 +51,7 @@ input {
 }
 
 .bg {
+  padding: 24px;
   overflow: auto;
   top: 0;
   left: 0;
@@ -58,6 +59,12 @@ input {
   width: 100vw;
   background-color: #303030;
   color: #fff;
+}
+
+@media (max-width: 599.98px) {
+  .bg {
+    padding: 16px;
+  }
 }
 
 .scrollable {

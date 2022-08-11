@@ -13,6 +13,6 @@ export class GamePlayerGuard implements CanActivate {
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    return !!this.gameService.player || this.router.parseUrl('/home');
+    return true; // !!this.gameService.player || this.router.parseUrl('/home');
   }
 }

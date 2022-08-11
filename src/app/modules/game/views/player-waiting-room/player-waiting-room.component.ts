@@ -11,7 +11,7 @@ export class PlayerWaitingRoomComponent {
   constructor(private gameSrv: GameService, private router: Router) {}
 
   leave() {
-    this.gameSrv.leaveGame();
+    // this.gameSrv.leaveGame();
     this.router.navigateByUrl('/home');
   }
 }

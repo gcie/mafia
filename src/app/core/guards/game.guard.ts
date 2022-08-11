@@ -1,21 +1,38 @@
-import { Inject, Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
-import { GameService } from 'src/app/core/services/game.service';
-import { Logger } from 'src/app/core/services/logger.service';
-import { PID } from '../services/config.service';
+import { Injectable } from '@angular/core';
+import { ActivatedRouteSnapshot, CanActivate, Router, UrlTree } from '@angular/router';
+import { Actions, ofType } from '@ngrx/effects';
+import { Store } from '@ngrx/store';
+import { Observable, of } from 'rxjs';
+import { map, switchMap, take, tap } from 'rxjs/operators';
+import { GameActions, GameSelectors, State } from 'src/app/modules/game/state';
 
 @Injectable({
   providedIn: 'root',
 })
 export class GameGuard implements CanActivate {
-  constructor(private gameSrv: GameService, private logger: Logger, private router: Router, @Inject(PID) private pid: string) {}
+  constructor(private actions$: Actions, private router: Router, private state: Store<State>) {}
 
-  async canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Promise<boolean | UrlTree> {
+  canActivate(route: ActivatedRouteSnapshot): Observable<boolean | UrlTree> {
+    console.log('[GameGuard] can activate');
     const token = route.params.token;
-    if (!!this.gameSrv.game && this.gameSrv.game.token == token && (this.gameSrv.player || this.gameSrv.isMaster)) return true;
-    await this.gameSrv.joinGame(token);
-    const path = `/game/${token}/${this.gameSrv.isMaster ? 'master' : 'player'}/waiting-room`;
-    this.logger.debug('GameGuard', 'redirecting to', path);
-    return this.router.parseUrl(path);
+    return this.state.select(GameSelectors.getGame).pipe(
+      map((game) => !!game && game.token == token),
+      take(1),
+      switchMap((joined) => {
+        console.log('[GameGuard] joined:', joined);
+        if (joined) return of(true);
+        else {
+          this.state.dispatch(GameActions.joinGame({ token }));
+          return this.actions$.pipe(
+            ofType(GameActions.joinGameUpdate),
+            take(1),
+            switchMap(() => this.state.select(GameSelectors.isMaster)),
+            take(1),
+            tap((isMaster) => console.log('[GameGuard] isMaster:', isMaster)),
+            map((isMaster) => this.router.parseUrl(`/game/${token}/${isMaster ? 'master' : 'player'}/waiting-room`))
+          );
+        }
+      })
+    );
   }
 }

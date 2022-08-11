@@ -1,7 +1,6 @@
 .players-wrapper {
-  margin: 0 16px;
-  width: 90%;
   max-width: 400px;
+  width: 100%;
 }
 
 .player-name {
@@ -10,7 +9,12 @@
 }
 
 .settings-wrapper {
-  width: 90%;
-  max-width: 400px;
   margin-bottom: 16px;
+  max-width: 400px;
+  width: 100%;
+}
+
+.mat-checkbox-layout,
+.mat-checkbox-label {
+  width: 100%;
 }

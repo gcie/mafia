@@ -1,4 +1,4 @@
-<div fxLayout="column" class="bg" fxLayoutAlign="start center" style="padding: 24px">
+<div fxLayout="column" class="bg" fxLayoutAlign="start center">
   <div class="mat-display-2 header">Kod: {{ token | async }}</div>
 
   <div class="settings-wrapper">
@@ -22,12 +22,13 @@
     <mat-divider *ngIf="players.length > 0"></mat-divider>
     <ng-container *ngFor="let player of players">
       <span fxLayout="row" fxLayoutAlign="start center">
-        <mat-checkbox [(ngModel)]="selectedPlayers[player.pid]" (ngModelChange)="updateNumberOfSelectedPlayers()">
-          <p class="player-name">
+        <mat-checkbox fxFlex [(ngModel)]="selectedPlayers[player.pid]"
+          (ngModelChange)="updateNumberOfSelectedPlayers()">
+          <p class="player-name" style="width: 100%">
             {{ player.name }}
           </p>
         </mat-checkbox>
-        <div fxFlex></div>
+        <!-- <div fxFlex (click)="toggle(player.pid)" style="position:relative"></div> -->
         <button mat-icon-button>
           <mat-icon class="material-icons-outlined">
             more_vert
